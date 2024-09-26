@@ -46,6 +46,24 @@ def plot_temp_data(df, datestmp, cols=COLNAMES[2:]):
     labels = ['{:.2f} {:<5}'.format(df[col].iloc[-1], col) for col in sorted_cols]
     
     legend = ax.legend(labels, bbox_to_anchor=(1.05, 1), loc='upper left')  
+    # Add axvspan for each contiguous section where 'Status' is 2
+    status = df['Status'] == 2
+    start = None
+    count = 1
+    for i in range(len(status)):
+        if status.iat[i]:  # If status is 2
+            if start is None:  # If start of contiguous section
+                start = df.index[i]
+        else:  # If status is not 2
+            if start is not None:  # If end of contiguous section
+                end = df.index[i]
+                # Add axvspan for the section from start to end
+                pplot.axvspan(start, end, facecolor='g', alpha=0.25)
+                # Annotate the axvspan with the count
+                mid_point = start + (end - start) / 2
+                pplot.annotate(str(count), (mid_point, pplot.get_ylim()[1]), color='black', ha='center', va='top')
+                count += 1
+                start = None  # Reset start
     return fig
 
 def plot_pressure_data(df, datestmp, cols=COLNAMES[1],):
