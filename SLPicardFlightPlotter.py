@@ -40,12 +40,12 @@ def clean_data(msglst, maskcols=COLNAMES[2:-1], minval=-10.0, maxval=100.0):
 def plot_temp_data(df, datestmp, cols=COLNAMES[2:]):
     fig, ax = plt.subplots()
     sorted_cols = df[cols].iloc[-1].sort_values(ascending=False).index
-    df[sorted_cols].plot(ax=ax, legend=False, grid=True, title=f"{datestmp} PICARD Temperatures")
+    pplot = df[sorted_cols].plot(ax=ax, legend=False, grid=True, title=f"{datestmp} PICARD Temperatures")
     
     # Prepend the last value to the label
     labels = ['{:.2f} {:<5}'.format(df[col].iloc[-1], col) for col in sorted_cols]
     
-    legend = ax.legend(labels, bbox_to_anchor=(1.05, 1), loc='upper left')  
+    legend = pplot.legend(labels, bbox_to_anchor=(1.05, 1), loc='upper left')  
     # Add axvspan for each contiguous section where 'Status' is 2
     status = df['Status'] == 2
     start = None
@@ -64,12 +64,12 @@ def plot_temp_data(df, datestmp, cols=COLNAMES[2:]):
                 pplot.annotate(str(count), (mid_point, pplot.get_ylim()[1]), color='black', ha='center', va='top')
                 count += 1
                 start = None  # Reset start
-    return fig
+    return pplot
 
 def plot_pressure_data(df, datestmp, cols=COLNAMES[1],):
-    fig, ax = plt.subplots()
-    df[cols].plot(ax=ax, legend=True, grid=True, title=f"{datestmp} PICARD Pressure")
-    return fig
+    #fig, ax = plt.subplots()
+    pplot = df[cols].plot(ax=ax, legend=True, grid=True, title=f"{datestmp} PICARD Pressure")
+    return pplot
     
 def save_data(df, datestmp):
     hk_file = f'/srv/podlog.d/{datestmp}_PICARD_HK.h5'
