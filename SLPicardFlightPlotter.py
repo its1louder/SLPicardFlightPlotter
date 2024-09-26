@@ -101,7 +101,7 @@ def slmain():
     with cola:
         url = st.text_input("URL", URL)
     with colb:
-        freshness = st.number_input('Freshness', min_value=2, max_value=200000,  value="min", )
+        freshness = st.number_input('Freshness', min_value=2, max_value=200000,  value=15, )
     if st.button('Scrape and Plot Data'):
         msglst = scrape_data(url)
         df = clean_data(msglst)
