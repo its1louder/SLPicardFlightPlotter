@@ -109,8 +109,8 @@ def slmain():
         st.pyplot(plot_temp_data(df,datestmp))
         
         # this line to save the data will only work on local deployment, not on streamlit cloud
-        picard_file = save_data(df, datestmp)
-        st.markdown(get_binary_file_downloader_html(picard_file, 'Download PICARD HK Data'), unsafe_allow_html=True)
+        #picard_file = save_data(df, datestmp)
+        #st.markdown(get_binary_file_downloader_html(picard_file, 'Download PICARD HK Data'), unsafe_allow_html=True)
         st.write (df)
         st.pyplot(plot_pressure_data(df,datestmp))
 
