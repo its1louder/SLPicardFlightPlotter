@@ -96,14 +96,17 @@ def display_status(df, now=None, freshness=15):
 def slmain():
     
     st.title("PICARD status packet plotter")
-
-    url = st.text_input("URL", URL)
-    freshness = st.number_input('Freshness', min_value=2, max_value=200000,  value="min", )
+    # Set up layout with two columns
+    cola, colb = st.columns(2)
+    with cola:
+        url = st.text_input("URL", URL)
+    with colb:
+        freshness = st.number_input('Freshness', min_value=2, max_value=200000,  value="min", )
     if st.button('Scrape and Plot Data'):
         msglst = scrape_data(url)
         df = clean_data(msglst)
         datestmp = df.index[0].strftime("%Y-%m-%d")
-
+
         display_status(df, freshness=freshness)
         
         st.pyplot(plot_temp_data(df,datestmp))
@@ -115,4 +118,4 @@ def slmain():
         st.pyplot(plot_pressure_data(df,datestmp))
 
 if __name__ == "__main__":
-    slmain()
+  slmain()
