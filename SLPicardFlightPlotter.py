@@ -97,7 +97,7 @@ def slmain():
     
     st.title("PICARD status packet plotter")
     # Set up layout with two columns
-    cola, colb = st.columns(2)
+    cola, colb = st.columns([3,2])
     with cola:
         url = st.text_input("URL", URL)
     with colb:
