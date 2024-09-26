@@ -64,12 +64,12 @@ def plot_temp_data(df, datestmp, cols=COLNAMES[2:]):
                 pplot.annotate(str(count), (mid_point, pplot.get_ylim()[1]), color='black', ha='center', va='top')
                 count += 1
                 start = None  # Reset start
-    return pplot
+    return fig
 
 def plot_pressure_data(df, datestmp, cols=COLNAMES[1],):
-    #fig, ax = plt.subplots()
+    fig, ax = plt.subplots()
     pplot = df[cols].plot(ax=ax, legend=True, grid=True, title=f"{datestmp} PICARD Pressure")
-    return pplot
+    return fig
     
 def save_data(df, datestmp):
     hk_file = f'/srv/podlog.d/{datestmp}_PICARD_HK.h5'
